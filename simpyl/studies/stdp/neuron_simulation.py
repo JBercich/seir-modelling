@@ -7,9 +7,69 @@ from simpyl.studies.stdp.neuron import (
     NEURON_INPUT_CURRENT,
     NEURON_THRESHOLD,
     Neuron,
+    NeuronName,
+    NeuronType,
 )
 
 CURRENT_DELAY_MS: int = 10
+NEURONS: list[Neuron] = [
+    Neuron(
+        recovery_time_scale=0.02,
+        recovery_sensitivity=0.20,
+        spike_reset_membrane_potential=-65,
+        spike_reset_recovery=8.00,
+        neuron_name=NeuronName.RS,
+        neuron_type=NeuronType.Excitatory,
+    ),
+    Neuron(
+        recovery_time_scale=0.02,
+        recovery_sensitivity=0.20,
+        spike_reset_membrane_potential=-55,
+        spike_reset_recovery=4.00,
+        neuron_name=NeuronName.IB,
+        neuron_type=NeuronType.Excitatory,
+    ),
+    Neuron(
+        recovery_time_scale=0.02,
+        recovery_sensitivity=0.20,
+        spike_reset_membrane_potential=-50,
+        spike_reset_recovery=2.00,
+        neuron_name=NeuronName.CH,
+        neuron_type=NeuronType.Excitatory,
+    ),
+    Neuron(
+        recovery_time_scale=0.10,
+        recovery_sensitivity=0.20,
+        spike_reset_membrane_potential=-65,
+        spike_reset_recovery=2.00,
+        neuron_name=NeuronName.FS,
+        neuron_type=NeuronType.Inhibitory,
+    ),
+    Neuron(
+        recovery_time_scale=0.02,
+        recovery_sensitivity=0.25,
+        spike_reset_membrane_potential=-65,
+        spike_reset_recovery=2.00,
+        neuron_name=NeuronName.LTS,
+        neuron_type=NeuronType.Inhibitory,
+    ),
+    Neuron(
+        recovery_time_scale=0.02,
+        recovery_sensitivity=0.25,
+        spike_reset_membrane_potential=-65,
+        spike_reset_recovery=0.05,
+        neuron_name=NeuronName.TC,
+        neuron_type=NeuronType.Other,
+    ),
+    Neuron(
+        recovery_time_scale=0.10,
+        recovery_sensitivity=0.26,
+        spike_reset_membrane_potential=-65,
+        spike_reset_recovery=2.00,
+        neuron_name=NeuronName.RZ,
+        neuron_type=NeuronType.Other,
+    ),
+]
 
 
 class NeuronSimulation:
