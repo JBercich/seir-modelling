@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "simpyl"
+version = "0.0.1-beta1"
+description = "Simple simulations modelling abstraction package. Contains case studies for SEIR and STDP simulations."
+authors = ["JBercich <joshbercich@gmail.com>"]
+license = "MIT Licence"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+numpy = "^1.25.0"
+pandas = "^2.0.3"
+matplotlib = "^3.7.2"
+seaborn = "^0.12.2"
+pydantic = "^2.0.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
