@@ -27,6 +27,7 @@ black = {extras = ["jupyter"], version = "^23.3.0"}
 flake8 = "^6.0.0"
 mypy = "^1.4.1"
 isort = "^5.12.0"
+pdoc3 = "^0.10.0"
 
 [tool.poetry.group.sim.dependencies]
 numpy = "^1.25.0"
