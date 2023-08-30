@@ -12,7 +12,7 @@ class Resource(ABC):
     def __new__(cls, *args, **kwargs):
         if cls == Resource or cls.__bases__[0] == ABC:
             raise TypeError("cannot instantiate abstract class")
-        return super().__new__(cls)
+        return super(Resource, cls).__new__(cls)
 
     def __init__(self):
         self._uuid: UUID = uuid4()
@@ -61,11 +61,11 @@ class Variable(Resource):
 
 
 @dataclass(order=True, slots=True)
-class Element(ABC):
+class Element(Resource, ABC):
     def __new__(cls, *args, **kwargs):
-        if cls == Element or cls.__bases__[0] == Element:
+        if cls == Element or cls.__bases__[0] == Resource:
             raise TypeError("cannot instantiate abstract class")
-        return super().__new__(cls, *args, **kwargs)
+        return super(Element, cls).__new__(cls)
 
 
 # class FunDecorator:

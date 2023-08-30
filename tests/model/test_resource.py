@@ -4,7 +4,7 @@
 import pytest
 from uuid import UUID
 
-from simpyl.model.resource import Resource, Variable
+from simpyl.model.resource import Resource, Variable, Element
 
 
 class TestResource:
@@ -86,3 +86,21 @@ class TestVariable:
 
     def test__div__(self):
         pass
+
+
+class TestElement:
+    class MockElement(Element):
+        field: int = 1
+
+    @pytest.fixture
+    def mock_element(cls):
+        return cls.MockElement()
+
+    def test_cannot_init_abstract_class(self, abstract_init_error_message):
+        with pytest.raises(TypeError) as exc:
+            Element()
+        assert str(exc.value) == abstract_init_error_message
+
+    def test_dataclass_fields(self, mock_element):
+        assert "field" in dir(mock_element)
+        assert mock_element.field == 1
