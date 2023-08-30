@@ -41,14 +41,6 @@ class Variable(Resource):
             return operation(self._value, other._value)
         return operation(self._value, other)
 
-    def __repr__(self):
-        clsname: str = self.__class__.__name__
-        cls_name: str = self._name
-        cls_uuid: UUID = self._uuid
-        cls_value: Any = self._value
-        cls_dtype: str = self._dtype.__name__
-        return f"{clsname}[{cls_name}]({cls_dtype}):{cls_value}\n{cls_uuid}"
-
     def __eq__(self, other):
         return self._name == other._name and self._value == other._value
 
