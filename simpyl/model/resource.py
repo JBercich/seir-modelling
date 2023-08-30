@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 
+import operator
 from typing import Any
 from uuid import UUID, uuid4
 from abc import ABC
@@ -17,7 +18,9 @@ class Resource(ABC):
         self._uuid: UUID = uuid4()
 
     def __repr__(self):
-        return f"{self.__class__.__name__}:{self._uuid}"
+        clsname: str = self.__class__.__name__
+        cls_uuid: UUID = self._uuid
+        return f"{clsname}:{cls_uuid}"
 
     def __eq__(self, other):
         return self._uuid == other._uuid
@@ -29,9 +32,37 @@ class Resource(ABC):
 class Variable(Resource):
     def __init__(self, name: str, value: Any):
         super().__init__()
-        self._name = name
-        self._value = value
-        self._dtype = type(value)
+        self._name: str = name
+        self._value: Any = value
+        self._dtype: type = type(value)
+
+    def operation(self, other, operation):
+        if isinstance(other, self.__class__):
+            return operation(self._value, other._value)
+        return operation(self._value, other)
+
+    def __repr__(self):
+        clsname: str = self.__class__.__name__
+        cls_name: str = self._name
+        cls_uuid: UUID = self._uuid
+        cls_value: Any = self._value
+        cls_dtype: str = self._dtype.__name__
+        return f"{clsname}[{cls_name}]({cls_dtype}):{cls_value}\n{cls_uuid}"
+
+    def __eq__(self, other):
+        return self._name == other._name and self._value == other._value
+
+    def __add__(self, other):
+        return self.operation(other, operator.add)
+
+    def __sub__(self, other):
+        return self.operation(other, operator.sub)
+
+    def __mul__(self, other):
+        return self.operation(other, operator.mul)
+
+    def __div__(self, other):
+        return self.operation(other, operator.div)
 
 
 @dataclass(order=True, slots=True)
@@ -39,12 +70,7 @@ class Element(ABC):
     def __new__(cls, *args, **kwargs):
         if cls == Element or cls.__bases__[0] == Element:
             raise TypeError("cannot instantiate abstract class")
-        return super().__new__(cls)
-
-
-# print(Variable("test", 1))
-# print(Variable("test", 2))
-# print(Variable("test", 3))
+        return super().__new__(cls, *args, **kwargs)
 
 
 # class FunDecorator:

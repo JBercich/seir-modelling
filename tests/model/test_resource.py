@@ -4,7 +4,7 @@
 import pytest
 from uuid import UUID
 
-from simpyl.model.resource import Resource
+from simpyl.model.resource import Resource, Variable
 
 
 class TestResource:
@@ -35,3 +35,7 @@ class TestResource:
         assert mock_resource == mock_resource
         assert mock_resource._uuid != self.MockResource()._uuid
         assert mock_resource != self.MockResource()
+
+
+class TestVariable:
+    pass
