@@ -38,4 +38,51 @@ class TestResource:
 
 
 class TestVariable:
-    pass
+    @pytest.fixture
+    def int_variable(cls):
+        return Variable("intVar", 1)
+
+    @pytest.fixture
+    def str_variable(cls):
+        return Variable("strVar", "str")
+
+    def test__init__(self):
+        variable: Variable = Variable("intVar", 1)
+        assert variable is not None
+        assert variable._uuid is not None
+        assert variable._name == "intVar"
+        assert variable._value == 1
+        assert variable._dtype == int
+
+    def test__eq__(self, int_variable, str_variable):
+        assert int_variable != str_variable
+        assert int_variable == int_variable
+        assert str_variable == str_variable
+        assert int_variable == Variable("intVar", 1)
+        assert str_variable == Variable("strVar", "str")
+        assert int_variable != Variable("intVarDiff", 1)
+        assert str_variable != Variable("strVarDiff", "str")
+        assert int_variable != Variable("intVar", 2)
+        assert str_variable != Variable("strVar", "strDiff")
+
+    def test__lt__(self, int_variable, str_variable):
+        assert int_variable < 2
+        assert int_variable < Variable("intVar", 2)
+        assert int_variable < Variable("intVarDiff", 2)
+        assert str_variable < "stra"
+        assert str_variable < Variable("strVar", "stra")
+        assert str_variable < Variable("strVarDiff", "stra")
+        with pytest.raises(TypeError):
+            int_variable < str_variable
+
+    def test__add__(self, int_variable, str_variable):
+        pass
+
+    def test__sub__(self):
+        pass
+
+    def test__mul__(self):
+        pass
+
+    def test__div__(self):
+        pass

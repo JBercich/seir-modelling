@@ -44,6 +44,9 @@ class Variable(Resource):
     def __eq__(self, other):
         return self._name == other._name and self._value == other._value
 
+    def __lt__(self, other):
+        return self.operation(other, operator.lt)
+
     def __add__(self, other):
         return self.operation(other, operator.add)
 
