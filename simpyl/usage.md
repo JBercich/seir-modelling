@@ -3,28 +3,38 @@
 ## Example: Neuron Spiking (Continuous)
 
 ```python
-from simpyl import Variable, Element, SystemModel
 
-# Define objects
-class Neuron(Element):
-    a: float
-    b: float
-    c: float
-    d: float
-    r: float
-neuron: Neuron = Neuron(1., 2., 3., 4., 5.)
-membrane_potential: Variable = Variable("Membrane Potential", 10.1, dtype=float, max_value=100, ...)
-potential_reset: Variable = Variable("Neuron Reset", 0.)
+# Construction of the model resources
 
-# Define system updates
-@SystemModel.continuous(timestep=0.1)
-def update_membrane_potential(neuron: Neuron, membrane_potential: Variable):
-    return neuron.a * neuron.b * (membrane_potential * 2)
+class Neuron(Resource):
+    a: int
+    b: int
 
-@SystemModel.continuous(timestep=0.2)
-def update_potential_reset(neuron, membrane_potential, potential_reset):
-    return ...
+neuron = Neuron(1, 2)
 
-# Perform the simulation
-simulation = SystemModel.run(lifetime=1000)
+neuron_memb = Resource(name="MEMB", value=100, ...)
+neuron_updt = Resource(name="UPDT", value=250, ...)
+
+
+# Register interactions
+
+## Global scope model
+
+model1 = Model()
+
+@model1.register.continuous(neuron, neuron_memb=neuron_memb, target=neuron_memb, timestep=0.1,...)
+def update_memb(neuron, neuron_memb) -> Any:
+    return neuron.a * neuron.b ** neuron_memb
+
+simulation = model1.run()
+
+
+## Local scope model
+
+def update_updt(neuron, neuron_updt) -> Any:
+    return neuron.a * neuron.b ** neuron_updt
+
+model2 = Model()
+model2.register.continuous(neuron_updt, timestep=0.5, target=update_updt, neuron=neuron, ...)
+simulation = model2.run()
 ```

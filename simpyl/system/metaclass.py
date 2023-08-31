@@ -8,8 +8,8 @@ import uuid
 class BaseMetaclass(abc.ABC):
     """
     Superclass for system abstraction elements providing OOP functionality like stopping
-    any abstract classes from being instantiated and auto-generating a uuuid for any
-    instance of a subclass. Generic built-ins are defined to minimise code repetition.
+    abstract subclasses being instantiated and auto-generating a uuuid for any instance.
+    Generic built-ins are defined to minimise subclass code repetition.
     """
 
     _uuid: uuid.UUID
