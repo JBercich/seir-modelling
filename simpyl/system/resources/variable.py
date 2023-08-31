@@ -3,30 +3,8 @@
 
 import operator
 from typing import Any
-from uuid import UUID, uuid4
-from abc import ABC
-from dataclasses import dataclass
 
-
-class Resource(ABC):
-    def __new__(cls, *args, **kwargs):
-        if cls == Resource or cls.__bases__[0] == ABC:
-            raise TypeError("cannot instantiate abstract class")
-        return super(Resource, cls).__new__(cls)
-
-    def __init__(self):
-        self._uuid: UUID = uuid4()
-
-    def __repr__(self):
-        clsname: str = self.__class__.__name__
-        cls_uuid: UUID = self._uuid
-        return f"{clsname}:{cls_uuid}"
-
-    def __eq__(self, other):
-        return self._uuid == other._uuid
-
-    def __hash__(self):
-        return hash(self._uuid)
+from simpyl.resources.resource import Resource
 
 
 class Variable(Resource):
@@ -58,11 +36,3 @@ class Variable(Resource):
 
     def __div__(self, other):
         return self.operation(other, operator.div)
-
-
-@dataclass(order=True, slots=True)
-class Element(Resource, ABC):
-    def __new__(cls, *args, **kwargs):
-        if cls == Element or cls.__bases__[0] == Resource:
-            raise TypeError("cannot instantiate abstract class")
-        return super(Element, cls).__new__(cls)
