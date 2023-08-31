@@ -32,5 +32,5 @@ class BaseMetaclass(abc.ABC):
     def __hash__(self):
         return hash(self.get_uuid())
 
-    def get_uuid(self):
+    def get_uuid(self) -> uuid.UUID:
         return self._uuid
