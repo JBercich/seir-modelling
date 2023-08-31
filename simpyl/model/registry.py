@@ -1,18 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 
-from uuid import UUID, uuid4
 from typing import Any
 
+from simpyl.model import BaseMetaclass
 
-class Registry:
+
+class Registry(BaseMetaclass):
     def __init__(self, dtype: type):
-        self._uuid: UUID = uuid4()
         self._dtype: type = dtype
         self._registry: list[dtype] = []
-
-    def __repr__(self):
-        return "{}:{}" % (self.__class__.__name__, self._uuid)
 
     def __len__(self):
         return len(self.registry)
@@ -23,7 +20,7 @@ class Registry:
 
     def register(self, item: Any):
         if not isinstance(item, self.dtype):
-            raise TypeError(f"{self} does not accept {type(item)}")
+            raise TypeError(f"{self} does not accept type {type(item)}")
         self.registry.append(item)
 
     def deregister(self, item: Any):
