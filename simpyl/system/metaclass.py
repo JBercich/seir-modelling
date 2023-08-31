@@ -24,10 +24,13 @@ class BaseMetaclass(abc.ABC):
         return instance
 
     def __eq__(self, other):
-        return self._uuid == other._uuid
+        return self.get_uuid() == other.get_uuid()
 
     def __repr__(self):
-        return f"{self.__class__.__name__}:{self._uuid}"
+        return f"{self.__class__.__name__}:{self.get_uuid()}"
 
     def __hash__(self):
-        return hash(self._uuid)
+        return hash(self.get_uuid())
+
+    def get_uuid(self):
+        return self._uuid
