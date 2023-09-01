@@ -4,7 +4,7 @@
 import abc
 import pytest
 
-from simpyl.system import BaseMetaclass
+from simpyl.model import BaseMetaclass
 
 
 @pytest.mark.skip("NotImplemented")

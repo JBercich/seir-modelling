@@ -4,9 +4,9 @@
 from abc import ABC
 from dataclasses import dataclass
 
-from simpyl.system.resources import Resource
+from simpyl.model.resources.resource import Resource
 
 
 @dataclass(order=True, slots=True)
 class Entity(Resource, ABC):
-    pass
+    alias: str | None = None

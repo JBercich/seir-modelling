@@ -3,7 +3,7 @@
 
 from typing import Any
 
-from simpyl.model import BaseMetaclass
+from simpyl.core.metaclass import BaseMetaclass
 
 
 class Registry(BaseMetaclass):

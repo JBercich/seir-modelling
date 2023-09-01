@@ -4,11 +4,12 @@
 import operator
 from typing import Any, Callable
 
-from simpyl.system.resources import Resource
+from simpyl.model.resources.resource import Resource
 
 
 class DataField(Resource):
     def __init__(self, value: Any, name: str):
+        self.alias = name
         self._value: Any = value
         self._type: type = type(value)
         self._name: str = name
