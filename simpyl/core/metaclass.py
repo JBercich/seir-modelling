@@ -25,6 +25,11 @@ class BaseMetaclass(abc.ABC):
         return instance
 
     def __eq__(self, other):
+        if not isinstance(other, self.__class__):
+            raise TypeError(
+                "unsupported operand type(s) for =: '{}' and '{}'"
+                % (type(self), type(other))
+            )
         # Equivalence on the instance UUIDs
         return self.get_uuid() == other.get_uuid()
 

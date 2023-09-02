@@ -45,5 +45,11 @@ class Resource(BaseMetaclass, abc.ABC):
         return self._alias
 
     @typing.final
+    def set_alias(self, alias: str):
+        if not isinstance(alias, str):
+            raise TypeError("unsupported type for resource alias: '{}'" % type(alias))
+        self._alias: str = alias
+
+    @typing.final
     def is_default_alias(self) -> bool:
         return self.get_alias().strip() == Resource.DEFAULT_ALIAS

@@ -36,6 +36,9 @@ class TestBaseMetaclass:
     def test_generic_equality_by_uuid(self):
         pass
 
+    def test_generic_equality_unsupported_types(self):
+        pass
+
     def test_generic_hash_by_uuid(self):
         pass
 

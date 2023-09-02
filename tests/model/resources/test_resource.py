@@ -1,106 +1,56 @@
-# #!/usr/bin/env python3
-# # -*- coding:utf-8 -*-
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
 
-# import pytest
-# from uuid import UUID
+import abc
+import pytest
 
-# from simpyl.resources import Resource, Variable, Element
-
-# @pytest.mark.skip("implementation changes")
-# class TestResource:
-#     class MockResource(Resource):
-#         pass
-
-#     @pytest.fixture
-#     def mock_resource(cls):
-#         return cls.MockResource()
-
-#     def test_cannot_init_abstract_class(self, abstract_init_error_message):
-#         with pytest.raises(TypeError) as exc:
-#             Resource()
-#         assert str(exc.value) == abstract_init_error_message
-
-#     def test__init__(self):
-#         assert "_uuid" in self.MockResource().__dir__()
-#         assert isinstance(self.MockResource()._uuid, UUID)
-
-#     def test__repr__(self, mock_resource):
-#         assert mock_resource.__repr__() == f"MockResource:{mock_resource._uuid}"
-
-#     def test__hash__(self, mock_resource):
-#         assert hash(mock_resource) == hash(mock_resource._uuid)
-
-#     def test__eq__(self, mock_resource):
-#         assert mock_resource._uuid == mock_resource._uuid
-#         assert mock_resource == mock_resource
-#         assert mock_resource._uuid != self.MockResource()._uuid
-#         assert mock_resource != self.MockResource()
+from simpyl.model.resources.resource import Resource
 
 
-# class TestVariable:
-#     @pytest.fixture
-#     def int_variable(cls):
-#         return Variable("intVar", 1)
+@pytest.mark.skip("NotImplemented")
+class TestResource:
+    class MockResource(Resource):
+        def __init__(self, alias: str):
+            self._alias: str = alias
 
-#     @pytest.fixture
-#     def str_variable(cls):
-#         return Variable("strVar", "str")
+    class MockAbstractResource(Resource, abc.ABC):
+        pass
 
-#     def test__init__(self):
-#         variable: Variable = Variable("intVar", 1)
-#         assert variable is not None
-#         assert variable._uuid is not None
-#         assert variable._name == "intVar"
-#         assert variable._value == 1
-#         assert variable._dtype == int
+    def test_superclass_cannot_initialise(self):
+        pass
 
-#     def test__eq__(self, int_variable, str_variable):
-#         assert int_variable != str_variable
-#         assert int_variable == int_variable
-#         assert str_variable == str_variable
-#         assert int_variable == Variable("intVar", 1)
-#         assert str_variable == Variable("strVar", "str")
-#         assert int_variable != Variable("intVarDiff", 1)
-#         assert str_variable != Variable("strVarDiff", "str")
-#         assert int_variable != Variable("intVar", 2)
-#         assert str_variable != Variable("strVar", "strDiff")
+    def test_abstract_subclass_cannot_initialise(self):
+        pass
 
-#     def test__lt__(self, int_variable, str_variable):
-#         assert int_variable < 2
-#         assert int_variable < Variable("intVar", 2)
-#         assert int_variable < Variable("intVarDiff", 2)
-#         assert str_variable < "stra"
-#         assert str_variable < Variable("strVar", "stra")
-#         assert str_variable < Variable("strVarDiff", "stra")
-#         with pytest.raises(TypeError):
-#             int_variable < str_variable
+    def test_subclass_can_initialise(self):
+        pass
 
-#     def test__add__(self, int_variable, str_variable):
-#         pass
+    def test_subclass_get_alias_attribute(self):
+        pass
 
-#     def test__sub__(self):
-#         pass
+    def test_subclass_get_alias(self):
+        pass
 
-#     def test__mul__(self):
-#         pass
+    def test_subclass_set_alias(self):
+        pass
 
-#     def test__div__(self):
-#         pass
+    def test_subclass_set_alias_unsupported_types(self):
+        pass
 
+    def test_subclass_alias_default(self):
+        pass
 
-# class TestElement:
-#     class MockElement(Element):
-#         field: int = 1
+    def test_subclass_is_default_alias(self):
+        pass
 
-#     @pytest.fixture
-#     def mock_element(cls):
-#         return cls.MockElement()
+    def test_generic_equality_by_uuid(self):
+        pass
 
-#     def test_cannot_init_abstract_class(self, abstract_init_error_message):
-#         with pytest.raises(TypeError) as exc:
-#             Element()
-#         assert str(exc.value) == abstract_init_error_message
+    def test_generic_equality_by_alias(self):
+        pass
 
-#     def test_dataclass_fields(self, mock_element):
-#         assert "field" in dir(mock_element)
-#         assert mock_element.field == 1
+    def test_generic_equality_unsupported_types(self):
+        pass
+
+    def test_generic_repr_format_alias(self):
+        pass
