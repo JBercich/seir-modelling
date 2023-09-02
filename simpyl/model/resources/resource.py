@@ -2,13 +2,9 @@
 # -*- coding:utf-8 -*-
 
 import abc
-import enum
 import typing
 
 from simpyl.core.metaclass import BaseMetaclass
-
-
-DEFAULT_ALIAS: str = ""
 
 
 class Resource(BaseMetaclass, abc.ABC):
@@ -19,8 +15,10 @@ class Resource(BaseMetaclass, abc.ABC):
 
     ..NOTE::
         Aliases act to replace the unique identifiaction of resources. If no alias is
-        given to a resource, the uuid is used to identify it which is then
+        given to a resource, the uuid is used.
     """
+
+    DEFAULT_ALIAS: typing.Final[str] = ""
 
     _alias: str = DEFAULT_ALIAS
 
@@ -39,7 +37,7 @@ class Resource(BaseMetaclass, abc.ABC):
     def __repr__(self):
         if self.is_default_alias():
             # Instance alias is appended
-            return "{}({})" % (super(self).__repr__(), self.get_alias())
+            return super(self).__repr__() + "({})" % self.get_alias()
         return super(self).__repr__()
 
     @typing.final
@@ -48,4 +46,4 @@ class Resource(BaseMetaclass, abc.ABC):
 
     @typing.final
     def is_default_alias(self) -> bool:
-        return self.get_alias().strip() == DEFAULT_ALIAS
+        return self.get_alias().strip() == Resource.DEFAULT_ALIAS
