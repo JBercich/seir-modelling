@@ -11,13 +11,6 @@ class BaseMetaclass(abc.ABC):
     Metaclass for modular package components. Allocates a UUID for any class instance
     and asserts abstract classes cannot be instantiated. Additional class behaviours are
     defined through generic built-ins.
-
-    Usage:
-        ```python
-        class TestModel(BaseMetaclass):
-            def __init__(self):
-                assert hasattr(self, "_uuid")
-        ```
     """
 
     _uuid: uuid.UUID

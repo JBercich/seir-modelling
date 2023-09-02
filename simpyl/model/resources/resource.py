@@ -2,9 +2,13 @@
 # -*- coding:utf-8 -*-
 
 import abc
+import enum
 import typing
 
 from simpyl.core.metaclass import BaseMetaclass
+
+
+DEFAULT_ALIAS: str = ""
 
 
 class Resource(BaseMetaclass, abc.ABC):
@@ -18,18 +22,22 @@ class Resource(BaseMetaclass, abc.ABC):
         given to a resource, the uuid is used to identify it which is then
     """
 
-    @abc.abstractproperty
-    def _alias(self) -> str:
-        pass
+    _alias: str = DEFAULT_ALIAS
 
     def __eq__(self, other):
-        if self.get_alias() is not None and other.get_alias() is not None:
-            # Instance aliases are equivalent
-            return self.get_alias() == other.get_alias()
-        return super(self).__eq__(other)
+        if isinstance(other, self.__class__):
+            if self.is_default_alias() and other.is_default_alias():
+                # Instance aliases are equivalent
+                return self.get_alias() == other.get_alias()
+            return super(self).__eq__(other)
+        # Invalid type given for equality
+        raise TypeError(
+            "unsupported operand type(s) for =: '{}' and '{}'"
+            % (type(self), type(other))
+        )
 
     def __repr__(self):
-        if self.get_alias() is not None:
+        if self.is_default_alias():
             # Instance alias is appended
             return "{}({})" % (super(self).__repr__(), self.get_alias())
         return super(self).__repr__()
@@ -37,3 +45,7 @@ class Resource(BaseMetaclass, abc.ABC):
     @typing.final
     def get_alias(self) -> str:
         return self._alias
+
+    @typing.final
+    def is_default_alias(self) -> bool:
+        return self.get_alias().strip() == DEFAULT_ALIAS

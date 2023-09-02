@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 
-from abc import ABC
-from dataclasses import dataclass
+import abc
+import dataclasses
 
 from simpyl.model.resources.resource import Resource
 
 
-@dataclass(order=True, slots=True)
-class Entity(Resource, ABC):
+ENTITY_FIELD_ORDER: bool = True
+ENTITY_WRITE_SLOTS: bool = True
+
+
+@dataclasses.dataclass(order=ENTITY_FIELD_ORDER, slots=ENTITY_WRITE_SLOTS)
+class Entity(Resource, abc.ABC):
     alias: str | None = None
