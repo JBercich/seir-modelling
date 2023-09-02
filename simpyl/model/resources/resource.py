@@ -16,6 +16,9 @@ class Resource(BaseMetaclass, abc.ABC):
     ..NOTE::
         Aliases act to replace the unique identifiaction of resources. If no alias is
         given to a resource, the uuid is used.
+
+    ..TODO::
+        Replace with dataclasses overloading.
     """
 
     DEFAULT_ALIAS: typing.Final[str] = ""

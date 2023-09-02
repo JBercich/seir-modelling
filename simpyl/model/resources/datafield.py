@@ -8,6 +8,11 @@ from simpyl.model.resources.resource import Resource
 
 
 class DataField(Resource):
+    """
+    ..TODO::
+        Refactor with a dataclasses logic.
+    """
+
     def __init__(self, value: Any, name: str):
         self.alias = name
         self._value: Any = value

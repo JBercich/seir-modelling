@@ -11,6 +11,9 @@ class BaseMetaclass(abc.ABC):
     Metaclass for modular package components. Allocates a UUID for any class instance
     and asserts abstract classes cannot be instantiated. Additional class behaviours are
     defined through generic built-ins.
+
+    ..TODO::
+        Replace with dataclasses logic.
     """
 
     _uuid: uuid.UUID
