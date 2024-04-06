@@ -1,7 +1,10 @@
-# SimPyl
+# BioSimPy - Biology Simulations
 
-Simple simulations modelling abstraction package. Contains case studies for SEIR and STDP simulations.
+Experimenting with various different computer simulations in biology.
 
-## Licence
+## Getting Started
 
-This code is available under an MIT Licence.
+The repository uses `poetry` for dependency and build management.
+
+> [!NOTE]
+> Work in progress.
