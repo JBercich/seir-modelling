@@ -3,4 +3,4 @@
 
 
 class Interaction:
-    pass
+	pass

@@ -3,4 +3,4 @@
 
 
 class Resource:
-    pass
+	pass

@@ -1,40 +1,23 @@
-# pyproject.toml
-
-# Repository uses a poetry configuration for dependency management. This config file
-# also contains additional options for certain development tools like pre-commit hooks.
-# This is also a convenient manager for package publishing and automatically handling
-# version conflicts.
-
 [tool.poetry]
-name = "simpyl"
-version = "0.0.1-beta1"
-description = "Simple simulations modelling abstraction package. Contains case studies for SEIR and STDP simulations."
+name = "biological-simulations"
+version = "0.1.0"
+description = ""
 authors = ["Josh Bercich <joshbercich@gmail.com>"]
-license = "MIT Licence"
 readme = "README.md"
 
-# Dependency management is categorised into groups.
-#   - base: Top-level package dependencies required for functionality.
-#   - dev: Development tools to help any contributors with package development.
-
 [tool.poetry.dependencies]
-python = "^3.11"
-
-[tool.poetry.group.dev.dependencies]
-pre-commit = "^3.3.3"
-black = { extras = ["jupyter"], version = "^23.3.0" }
-flake8 = "^6.0.0"
-mypy = "^1.4.1"
-isort = "^5.12.0"
-pdoc3 = "^0.10.0"
-pytest = "^7.4.0"
+python = "^3.10"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-# Additional tool configurations
+[tool.ruff]
+line-length = 89
+indent-width = 4
+target-version = "py311"
+extend-include = ["*.ipynb"]
 
-[tool.black]
-line-length = 88
-target-version = ["py311"]
+[tool.ruff.format]
+indent-style = "tab"
+docstring-code-format = true
