@@ -45,7 +45,85 @@ files = [
     {file = "numpy-1.26.4.tar.gz", hash = "sha256:2a02aba9ed12e4ac4eb3ea9421c420301a0c6460d9830d74a9df87efa4912010"},
 ]
 
+[[package]]
+name = "polars"
+version = "0.20.18"
+description = "Blazingly fast DataFrame library"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "polars-0.20.18-cp38-abi3-macosx_10_12_x86_64.whl", hash = "sha256:e305f5e6c0b8dc37fe0ff3bb1143a8bf0341134e0b23dec7c50a148f426acceb"},
+    {file = "polars-0.20.18-cp38-abi3-macosx_11_0_arm64.whl", hash = "sha256:26716f074301f583da9af93108d57da631622d6496cbcbb8c08476180953f408"},
+    {file = "polars-0.20.18-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5b3843f69228df68cb82e39647c212fde58671c064c25a0c4d544f9446160a7e"},
+    {file = "polars-0.20.18-cp38-abi3-manylinux_2_24_aarch64.whl", hash = "sha256:4b775e9677d0050775243400def1f5de4dd02b5ee220873406abc4028228525e"},
+    {file = "polars-0.20.18-cp38-abi3-win_amd64.whl", hash = "sha256:73b81b9582c48f0ca4ae08c0adc56917b0c55682044bedf0eccd3f94e4e39169"},
+    {file = "polars-0.20.18.tar.gz", hash = "sha256:8a321cbdbb459e3c0cc1af2ce6ac930d0d3b5ccbeb2dd3e4237ad07d487fd290"},
+]
+
+[package.extras]
+adbc = ["adbc-driver-manager", "adbc-driver-sqlite"]
+all = ["polars[adbc,async,cloudpickle,connectorx,deltalake,fastexcel,fsspec,gevent,numpy,pandas,plot,pyarrow,pydantic,pyiceberg,sqlalchemy,timezone,xlsx2csv,xlsxwriter]"]
+async = ["nest-asyncio"]
+cloudpickle = ["cloudpickle"]
+connectorx = ["connectorx (>=0.3.2)"]
+deltalake = ["deltalake (>=0.14.0)"]
+fastexcel = ["fastexcel (>=0.9)"]
+fsspec = ["fsspec"]
+gevent = ["gevent"]
+matplotlib = ["matplotlib"]
+numpy = ["numpy (>=1.16.0)"]
+openpyxl = ["openpyxl (>=3.0.0)"]
+pandas = ["pandas", "pyarrow (>=7.0.0)"]
+plot = ["hvplot (>=0.9.1)"]
+pyarrow = ["pyarrow (>=7.0.0)"]
+pydantic = ["pydantic"]
+pyiceberg = ["pyiceberg (>=0.5.0)"]
+pyxlsb = ["pyxlsb (>=1.0)"]
+sqlalchemy = ["pandas", "sqlalchemy"]
+timezone = ["backports-zoneinfo", "tzdata"]
+xlsx2csv = ["xlsx2csv (>=0.8.0)"]
+xlsxwriter = ["xlsxwriter"]
+
+[[package]]
+name = "polars-lts-cpu"
+version = "0.20.18"
+description = "Blazingly fast DataFrame library"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "polars_lts_cpu-0.20.18-cp38-abi3-macosx_10_12_x86_64.whl", hash = "sha256:49e5350bc05935ac6f1032f7bfec7c1614f404183e9a7f325e633a07564fe427"},
+    {file = "polars_lts_cpu-0.20.18-cp38-abi3-macosx_11_0_arm64.whl", hash = "sha256:ed147576ddb97c92df8f7936b8d3287252fd7261dc5277de5d32a6af8bdf9085"},
+    {file = "polars_lts_cpu-0.20.18-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e740b041031985a1fbb61da4acc5160ced71af289022ad032521f07f65b55c00"},
+    {file = "polars_lts_cpu-0.20.18-cp38-abi3-manylinux_2_24_aarch64.whl", hash = "sha256:fc35b5aaf2b58f241acc2b41879e83c4fbad5dab154ae99e62a2e3675d48f957"},
+    {file = "polars_lts_cpu-0.20.18-cp38-abi3-win_amd64.whl", hash = "sha256:9ac0fe3d7548e7449d996149b3f31edd52a7def7cc9a1b56a1bf68af11b3f9dc"},
+    {file = "polars_lts_cpu-0.20.18.tar.gz", hash = "sha256:8a7abf4970ec1a1217f4934ffe9c6469207131edd0db909bb04f62e48fb88057"},
+]
+
+[package.extras]
+adbc = ["adbc-driver-manager", "adbc-driver-sqlite"]
+all = ["polars[adbc,async,cloudpickle,connectorx,deltalake,fastexcel,fsspec,gevent,numpy,pandas,plot,pyarrow,pydantic,pyiceberg,sqlalchemy,timezone,xlsx2csv,xlsxwriter]"]
+async = ["nest-asyncio"]
+cloudpickle = ["cloudpickle"]
+connectorx = ["connectorx (>=0.3.2)"]
+deltalake = ["deltalake (>=0.14.0)"]
+fastexcel = ["fastexcel (>=0.9)"]
+fsspec = ["fsspec"]
+gevent = ["gevent"]
+matplotlib = ["matplotlib"]
+numpy = ["numpy (>=1.16.0)"]
+openpyxl = ["openpyxl (>=3.0.0)"]
+pandas = ["pandas", "pyarrow (>=7.0.0)"]
+plot = ["hvplot (>=0.9.1)"]
+pyarrow = ["pyarrow (>=7.0.0)"]
+pydantic = ["pydantic"]
+pyiceberg = ["pyiceberg (>=0.5.0)"]
+pyxlsb = ["pyxlsb (>=1.0)"]
+sqlalchemy = ["pandas", "sqlalchemy"]
+timezone = ["backports-zoneinfo", "tzdata"]
+xlsx2csv = ["xlsx2csv (>=0.8.0)"]
+xlsxwriter = ["xlsxwriter"]
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "ae6aed3c2c02476f15bec76416bbc562ac2cb9a5a6386ca22fcec850db6e93cf"
+content-hash = "a51f3178f299c76eacb5323438f65cb63ee58884024865c51f1f772e02dc0b94"

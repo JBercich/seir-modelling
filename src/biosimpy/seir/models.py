@@ -6,21 +6,26 @@ from dataclasses import dataclass
 
 @dataclass
 class Strain:
-    infection_rate: float
-    virulence: float
-    recovery_rate: float
+	infection_rate: float
+	virulence: float
+	recovery_rate: float
+
+
+@dataclass
+class Infection:
+	strain: Strain
+	num_infected: float
 
 
 @dataclass
 class Environment:
-    reproduction_rate: float
-    fatality_rate: float
-    maximum_population: float
-    strains: list[Strain]
+	reproduction_rate: float
+	fatality_rate: float
+	maximum_population: float
 
 
 @dataclass
 class SEIR:
-    num_infected: dict[Strain, float]
-    num_susceptible: float
-    num_recovered: float
+	infections: list[Infection]
+	num_susceptible: float
+	num_recovered: float
