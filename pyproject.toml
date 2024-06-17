@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-numpy = "^1.26.4"
+numpy = "^2.0.0"
 polars = "^0.20.18"
 polars-lts-cpu = "^0.20.18"
 
