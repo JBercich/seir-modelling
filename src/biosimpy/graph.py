@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 from abc import ABC, abstractmethod
-from typing import Any, List, Dict
+from typing import Any, List, Dict, Set
 
 from biosimpy.exceptions import DependencyConflictException
 
@@ -24,7 +24,7 @@ class Variable(ABC):
         self.history: List[Any] = [self.value]
         self.depends: Dict[str, Variable] = {}
 
-    def register_variables(self, **dependencies):
+    def register_dependencies(self, **dependencies):
         for name, variable in dependencies.items():
             if name in self.depends.keys():
                 raise DependencyConflictException(name)
@@ -39,3 +39,36 @@ class Variable(ABC):
     @abstractmethod
     def update(self) -> Any:
         pass
+
+
+class SimulationGraph:
+    def __init__(self):
+        self.variables: List[Variable] = []
+
+    def register_variables(self, *variables):
+        for variable in variables:
+            if not issubclass(type(variable), Variable):
+                raise TypeError(f"Requires instances of {Variable}.")
+            if variable in self.variables:
+                raise ValueError(f"Variable conflict: {variable}")
+            self.variables.append(variable)
+
+
+# class TestVariable(Variable):
+#     def update(self):
+#         return self.value
+
+
+# class TestVariable2(Variable):
+#     def update(self, dependency):
+#         return self.value
+
+
+# simulation = SimulationGraph()
+# var_a = TestVariable()
+# var_b = TestVariable()
+# var_c = TestVariable2()
+# var_c.register_dependencies(dependency=var_b)
+# simulation.register_variables(var_a, var_b, var_c)
+
+# print(simulation.variables)
