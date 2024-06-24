@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "biosimpy"
+name = "simgraph"
 version = "0.1.0"
 description = "Experimenting with various different computer simulations in biology."
 authors = ["Josh Bercich <joshbercich@gmail.com>"]
