@@ -6,7 +6,7 @@ from dataclasses import dataclass
 import numpy as np
 import polars as pl
 
-from biosimpy.epidemiology.models import SEIR, Strain, Infection, Environment
+from simgraph.epidemiology.models import SEIR, Strain, Infection, Environment
 
 
 @dataclass

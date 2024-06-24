@@ -2,9 +2,10 @@
 # -*- coding:utf-8 -*-
 
 from abc import ABC, abstractmethod
-from typing import Any, List, Dict, Set
+from uuid import uuid4, UUID
+from typing import Any, List, Dict
 
-from biosimpy.exceptions import DependencyConflictException
+from simgraph.exceptions import DependencyConflictException
 
 variable_counter: int = 0
 
@@ -18,6 +19,7 @@ class Variable(ABC):
         return f"{name if name else cls.__name__}:{variable_counter - 1}"
 
     def __init__(self, init: Any = 0, name: str = ""):
+        self._id: UUID = uuid4()
         self.value: Any = init
         self._type: Any = type(init)
         self._name: str = self._generate_name(name)
@@ -43,6 +45,7 @@ class Variable(ABC):
 
 class SimulationGraph:
     def __init__(self):
+        self._id: UUID = uuid4()
         self.variables: List[Variable] = []
 
     def register_variables(self, *variables):
