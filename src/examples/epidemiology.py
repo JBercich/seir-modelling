@@ -1,109 +1,122 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 
+from typing import Any, List
+
 from simgraph import Entity, Constant, SimGraph
 
-# @staticmethod
-# def step_num_susceptible(
-#     env: Environment,
-#     population_size: float,
-#     num_susceptible: float,
-#     num_infected: np.ndarray,
-#     strain_infection_rate: np.ndarray,
-# ) -> np.ndarray:
-#     return (
-#         env.reproduction_rate
-#         * population_size
-#         * (1 - population_size / env.maximum_population)
-#         - env.fatality_rate * num_susceptible
-#         - np.sum(
-#             strain_infection_rate * num_infected * num_susceptible / population_size
-#         )
-#     )
-
-# @staticmethod
-# def step_num_infected(
-#     env: Environment,
-#     population_size: float,
-#     num_susceptible: float,
-#     num_infected: np.ndarray,
-#     strain_infection_rate: np.ndarray,
-#     strain_virulence: np.ndarray,
-#     strain_recovery_rate: np.ndarray,
-# ) -> np.ndarray:
-#     return (
-#         -env.fatality_rate * num_infected
-#         - strain_virulence * num_infected
-#         + strain_infection_rate * num_infected * num_susceptible / population_size
-#         - strain_recovery_rate * num_infected
-#     )
-
-# @staticmethod
-# def step_num_recovered(
-#     env: Environment,
-#     num_infected: np.ndarray,
-#     num_recovered: float,
-#     strain_recovery_rate: np.ndarray,
-# ):
 
 import numpy as np
+
+
+class PopulationSize(Entity):
+    def update(
+        self,
+        recovered_organisms: Entity,
+        susceptible_organisms: Entity,
+        strain_infected_organisms: List[Entity],
+    ) -> Any:
+        return (
+            recovered_organisms + susceptible_organisms + sum(strain_infected_organisms)
+        )
 
 
 class RecoveredOrganisms(Entity):
     def update(
         self,
-        fatality_rate: float,
-        strain_infected_organisms: np.ndarray,
-        strain_recovery_rate: np.ndarray,
-    ) -> float:
+        fatality_rate: Constant,
+        strain_infected_organisms: List[Entity],
+        strain_recovery_rate: List[Entity],
+    ) -> Any:
         return -fatality_rate * self + np.sum(
             strain_recovery_rate * strain_infected_organisms
         )
 
 
-# Make iterables possible as grouped dependencies
-
-# from dataclasses import dataclass
-
-
-# @dataclass
-# class Strain:
-#     infection_rate: float
-#     virulence: float
-#     recovery_rate: float
-
-
-# @dataclass
-# class Infection:
-#     strain: Strain
-#     num_infected: float
-
-
-# @dataclass
-# class Environment:
-#     reproduction_rate: float
-#     fatality_rate: float
-#     maximum_population: float
+class InfectedOrganisms(Entity):
+    def update(
+        self,
+        population_size: Constant,
+        fatality_rate: Constant,
+        strain_susceptible_organisms: Entity,
+        strain_infection_rate: Constant,
+        strain_virulence: Constant,
+        strain_recovery_rate: Constant,
+    ) -> Any:
+        return (
+            -fatality_rate * self
+            - strain_virulence * self
+            + strain_infection_rate
+            * self
+            * strain_susceptible_organisms
+            / population_size
+            - strain_recovery_rate * self
+        )
 
 
-# @dataclass
-# class SEIR:
-#     infections: list[Infection]
-#     num_susceptible: float
-#     num_recovered: float
+class SusceptibleOrganisms(Entity):
+    def update(
+        self,
+        fatality_rate: Constant,
+        reproduction_rate: Constant,
+        maximum_population: Constant,
+        population_size: Constant,
+        strain_infected_organisms: List[Entity],
+        strain_infection_rate: List[Constant],
+    ) -> Any:
+        return (
+            reproduction_rate
+            * population_size
+            * (1 - population_size / maximum_population)
+            - fatality_rate * self
+            - strain_infection_rate * strain_infected_organisms * self / population_size
+        )
 
 
-# result: pl.DataFrame = SEIRSimulation(
-#     Environment(0.1, 0.1, 1000.0),
-#     SEIR(
-#         [
-#             Infection(Strain(0.1, 0.2, 0.3), 100.0),
-#             Infection(Strain(0.01, 0.02, 0.03), 200.0),
-#         ],
-#         1000.0,
-#         1000.0,
-#     ),
-# ).run(100000, 0.1)
+strain_a_ir = Constant(0.1, name="strain_a_infection_rate")
+strain_a_vr = Constant(0.2, name="strain_a_virulence")
+strain_a_rr = Constant(0.3, name="strain_a_recovery_rate")
+strain_a_infected = InfectedOrganisms(100)
+strain_b_ir = Constant(0.01, name="strain_b_infection_rate")
+strain_b_vr = Constant(0.02, name="strain_b_virulence")
+strain_b_rr = Constant(0.03, name="strain_b_recovery_rate")
+strain_b_infected = InfectedOrganisms(200)
 
-# print(result)
-# print(time.time() - t0)
+susceptible = SusceptibleOrganisms(1000.0, name="susceptible_organisms")
+recovered = RecoveredOrganisms(1000.0, name="recovered_organisms")
+population_size = PopulationSize(
+    susceptible + recovered + strain_a_infected + strain_b_infected,
+    name="population_size",
+)
+
+reproduction_rate = Constant(0.1, name="reproduction_rate")
+fatality_rate = Constant(0.1, name="fatality_rate")
+maximum_population = Constant(1000.0, name="maximum_population")
+
+population_size.add_dependencies(
+    recovered_organisms=recovered,
+    susceptible_organisms=susceptible,
+    strain_infected_organisms=[strain_a_infected, strain_b_infected],
+)
+strain_a_infected.add_dependencies(
+    population_size=population_size,
+    fatality_rate=fatality_rate,
+    strain_susceptible_organisms=susceptible,
+    strain_infection_rate=strain_a_ir,
+    strain_virulence=strain_a_vr,
+    strain_recovery_rate=strain_a_rr,
+)
+strain_b_infected.add_dependencies(
+    population_size=population_size,
+    fatality_rate=fatality_rate,
+    strain_susceptible_organisms=susceptible,
+    strain_infection_rate=strain_b_ir,
+    strain_virulence=strain_b_vr,
+    strain_recovery_rate=strain_b_rr,
+)
+
+recovered.add_dependencies(
+    fatality_rate=
+    strain_infected_organisms=
+    strain_recovery_rate=
+)

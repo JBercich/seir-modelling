@@ -10,8 +10,41 @@ from typing import Any, List, Dict, Callable
 from simgraph.exceptions import InvalidEntityTypeException
 
 
+# import numpy as np
+
+
+# print(issubclass(dict, Iterable))
+# print([x for x in {1, 2}])
+
+
+# @unique
+# class SupportedTypes(Enum):
+#     string
+#     integer
+#     floating_point
+#     unsigned_integer
+#     byte = np.byte
+#     byte_array = np.array
+#     char = np.char
+#     char_array = np.chararray
+
+
+#     builtin_int = int
+#     builtin_str = str
+#     builtin_float = float
+#     np_float = np.float_
+#     np_int = np.int_
+#     np_uint = np.uint
+#     np_bytes = np.bytes
+#     np_char = np.char
+#     np_str = np.string_
+
+# print(np.str_("AA"))
+# print(np.asarray([["AAA", "AAAa"]]).dtype)
+
+
 @unique
-class SupportedOperations(Enum):
+class ResourceOperation(Enum):
     __add__: Callable = operator.add
     __sub__: Callable = operator.sub
     __mul__: Callable = operator.mul
@@ -49,58 +82,58 @@ class Resource(ABC):
         return op(self.value, obj.value if issubclass(type(obj), Resource) else obj)
 
     def __add__(self, obj: Any) -> Any:
-        return self.__op__(obj, SupportedOperations.__add__)
+        return self.__op__(obj, ResourceOperation.__add__)
 
     def __sub__(self, obj: Any) -> Any:
-        return self.__op__(obj, SupportedOperations.__sub__)
+        return self.__op__(obj, ResourceOperation.__sub__)
 
     def __mul__(self, obj: Any) -> Any:
-        return self.__op__(obj, SupportedOperations.__mul__)
+        return self.__op__(obj, ResourceOperation.__mul__)
 
     def __truediv__(self, obj: Any) -> Any:
-        return self.__op__(obj, SupportedOperations.__truediv__)
+        return self.__op__(obj, ResourceOperation.__truediv__)
 
     def __floordiv__(self, obj: Any) -> Any:
-        return self.__op__(obj, SupportedOperations.__floordiv__)
+        return self.__op__(obj, ResourceOperation.__floordiv__)
 
     def __mod__(self, obj: Any) -> Any:
-        return self.__op__(obj, SupportedOperations.__mod__)
+        return self.__op__(obj, ResourceOperation.__mod__)
 
     def __pow__(self, obj: Any) -> Any:
-        return self.__op__(obj, SupportedOperations.__pow__)
+        return self.__op__(obj, ResourceOperation.__pow__)
 
     def __and__(self, obj: Any) -> Any:
-        return self.__op__(obj, SupportedOperations.__and__)
+        return self.__op__(obj, ResourceOperation.__and__)
 
     def __rshift__(self, obj: Any) -> Any:
-        return self.__op__(obj, SupportedOperations.__rshift__)
+        return self.__op__(obj, ResourceOperation.__rshift__)
 
     def __lshift__(self, obj: Any) -> Any:
-        return self.__op__(obj, SupportedOperations.__lshift__)
+        return self.__op__(obj, ResourceOperation.__lshift__)
 
     def __or__(self, obj: Any) -> Any:
-        return self.__op__(obj, SupportedOperations.__or__)
+        return self.__op__(obj, ResourceOperation.__or__)
 
     def __xor__(self, obj: Any) -> Any:
-        return self.__op__(obj, SupportedOperations.__xor__)
+        return self.__op__(obj, ResourceOperation.__xor__)
 
     def __lt__(self, obj: Any) -> Any:
-        return self.__op__(obj, SupportedOperations.__lt__)
+        return self.__op__(obj, ResourceOperation.__lt__)
 
     def __gt__(self, obj: Any) -> Any:
-        return self.__op__(obj, SupportedOperations.__gt__)
+        return self.__op__(obj, ResourceOperation.__gt__)
 
     def __le__(self, obj: Any) -> Any:
-        return self.__op__(obj, SupportedOperations.__le__)
+        return self.__op__(obj, ResourceOperation.__le__)
 
     def __ge__(self, obj: Any) -> Any:
-        return self.__op__(obj, SupportedOperations.__ge__)
+        return self.__op__(obj, ResourceOperation.__ge__)
 
     def __eq__(self, obj: Any) -> bool:
-        return self.__op__(obj, SupportedOperations.__eq__)
+        return self.__op__(obj, ResourceOperation.__eq__)
 
     def __ne__(self, obj: Any) -> bool:
-        return self.__op__(obj, SupportedOperations.__ne__)
+        return self.__op__(obj, ResourceOperation.__ne__)
 
 
 class Constant(Resource):
